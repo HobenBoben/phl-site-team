@@ -10,11 +10,11 @@ import base64
 
 app = Flask(__name__)
 app.secret_key = "QCYRI#crhq3cbidihqbccj387r873qyryxqnncqkcshbjdkcQIH@&H"  # В продакшене заменить на случайную строку
-app.permanent_session_lifetime = timedelta(minutes=30)
+app.permanent_session_lifetime = timedelta(minutes=3)
 
 # Пути для данных (монтируются в контейнере)
-DB_PATH = 'database.db'
-UPLOAD_FOLDER = 'static/uploads'
+DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'database.db')
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'static', 'uploads')
 ALLOWED_EXTENSIONS = {'mp4', 'webm', 'avi', 'mov', 'mkv', 'zip', 'mcworld', 'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -459,4 +459,5 @@ def delete_admin(id):
     return redirect("/admin/admins")
 
 if __name__ == "__main__":
+    init_db()
     app.run(host="0.0.0.0", port=3000, debug=True)
