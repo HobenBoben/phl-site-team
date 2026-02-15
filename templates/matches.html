@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="section-title">Результаты матчей</h2>
+
+<div class="row">
+    {% for m in matches %}
+    <div class="col-md-6 mb-4">
+        <div class="card-modern match-card">
+            <div class="match-date">{{ m[6] }}</div>  {# дата #}
+            <div class="match-teams">
+                <div class="team-left">
+                    <img src="{{ url_for('static', filename='images/logos/' + m[2]) }}" alt="{{ m[1] }}" class="team-logo">
+                    <div class="team-name">{{ m[1] }}</div>
+                </div>
+                <div class="match-score">{{ m[5] }}</div>  {# счёт #}
+                <div class="team-right">
+                    <img src="{{ url_for('static', filename='images/logos/' + m[4]) }}" alt="{{ m[3] }}" class="team-logo">
+                    <div class="team-name">{{ m[3] }}</div>
+                </div>
+            </div>
+            <div class="match-result {{ m[7] }}">  {# исход с классом win/loss/win_ot/loss_ot #}
+                {% if m[7] == 'win' %} Победа
+                {% elif m[7] == 'loss' %} Поражение
+                {% elif m[7] == 'win_ot' %} Победа (ОТ)
+                {% elif m[7] == 'loss_ot' %} Поражение (ОТ)
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

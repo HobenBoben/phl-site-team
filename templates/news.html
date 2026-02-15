@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="section-title">Новости команды</h2>
+
+{% for n in news %}
+<div class="card-modern">
+    <div class="row">
+        {% if n[3] %}  {# n[3] - preview_filename #}
+        <div class="col-md-3">
+            <img src="{{ url_for('static', filename='uploads/' + n[3]) }}" class="img-fluid rounded" alt="preview">
+        </div>
+        <div class="col-md-9">
+            <h4>{{ n[1] }}</h4>
+            <p>{{ n[2] }}</p>
+            <small class="text-muted">Опубликовано: {{ n[4] | datetime }}</small>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <h4>{{ n[1] }}</h4>
+            <p>{{ n[2] }}</p>
+            <small class="text-muted">Опубликовано: {{ n[4] | datetime }}</small>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

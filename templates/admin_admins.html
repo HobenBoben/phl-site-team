@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="section-title">Управление администраторами</h2>
+    <a href="/admin" class="btn btn-modern">← Назад в админку</a>
+</div>
+
+<div class="card-modern">
+    <div class="d-flex justify-content-between mb-3">
+        <h4>Список администраторов</h4>
+        <a href="/admin/admins/add" class="btn btn-modern">➕ Добавить администратора</a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-info">
+          {% for message in messages %}
+            {{ message }}<br>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                <tr>
+                    <td>{{ admin[0] }}</td>
+                    <td>{{ admin[1] }}</td>
+                    <td>
+                        {% if admin[2] == 1 %}
+                            <span class="badge bg-success">Активен</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Неактивен</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="/admin/admins/toggle/{{ admin[0] }}" class="btn btn-sm btn-modern">
+                            {% if admin[2] == 1 %}Деактивировать{% else %}Активировать{% endif %}
+                        </a>
+                        <a href="/admin/admins/delete/{{ admin[0] }}" class="btn btn-sm btn-modern" onclick="return confirm('Удалить администратора?')">🗑️</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

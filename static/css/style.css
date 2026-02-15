@@ -1,0 +1,536 @@
+:root {
+    /* Светлая тема (по умолчанию) */
+    --bg-gradient-start: #e0f7ff;
+    --bg-gradient-end: #f5fcff;
+    --card-bg: rgba(255, 255, 255, 0.75);
+    --text-color: #1e2a3a;
+    --navbar-bg: rgba(0, 120, 180, 0.85);
+    --accent: #00b4d8;
+    --accent-hover: #0096c7;
+    --border-color: #cfefff;
+    --shadow: 0 8px 20px rgba(0, 180, 216, 0.2);
+    --glow: 0 0 15px rgba(0, 180, 216, 0.6);
+    --text-muted: #4a5568;
+    --input-bg: rgba(255, 255, 255, 0.2);   /* полупрозрачный белый для светлой темы */
+}
+
+.dark-theme {
+    --bg-gradient-start: #0a1a2b;
+    --bg-gradient-end: #142b3c;
+    --card-bg: rgba(20, 40, 55, 0.85);
+    --text-color: #eef5ff;
+    --navbar-bg: rgba(0, 50, 80, 0.9);
+    --accent: #4dc3ff;
+    --accent-hover: #3aa8e0;
+    --border-color: #2a4b63;
+    --shadow: 0 8px 20px rgba(0, 200, 255, 0.25);
+    --glow: 0 0 20px rgba(77, 195, 255, 0.8);
+    --text-muted: #a0aec0;
+    --input-bg: rgba(20, 40, 55, 0.8);      /* тёмно-синий полупрозрачный для тёмной темы */
+}
+
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(180deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-color);
+    transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--navbar-bg);
+    backdrop-filter: blur(12px);
+    transition: background 0.3s ease;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+    transition: 0.2s;
+}
+.nav-link:hover {
+    text-shadow: var(--glow);
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+    background: none;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 30px;
+    padding: 6px 14px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 15px;
+}
+.theme-toggle:hover {
+    border-color: white;
+    background: rgba(255,255,255,0.2);
+    transform: scale(1.05);
+    box-shadow: var(--glow);
+}
+
+/* Контент */
+.main-container {
+    margin-top: 40px;
+}
+
+/* Hero секция */
+.hero {
+    height: 80vh;                     /* занимает 80% высоты экрана */
+    background-image: url('/static/images/team-photo.png'); /* замените на своё фото */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 0 0 40px 40px;     /* скругление снизу для плавности */
+    margin-bottom: 30px;
+    overflow: hidden;                  /* чтобы псевдоэлемент не вылезал за границы */
+}
+
+/* Размытие фона */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(8px);                /* лёгкое размытие */
+    z-index: 0;
+}
+
+/* Затемнение для читаемости текста */
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 50, 80, 0.3);  /* голубоватое затемнение */
+    z-index: 1;
+}
+
+.hero-title {
+    position: relative;
+    z-index: 2;
+    color: white;
+    font-size: 5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 30px rgba(0, 180, 216, 0.8);
+    animation: fadeIn 1s ease-out;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Для мобильных */
+@media (max-width: 768px) {
+    .hero {
+        height: 60vh;
+    }
+    .hero-title {
+        font-size: 3rem;
+    }
+}
+
+/* Карточки — более круглые, с неоном при наведении */
+.card-modern {
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border-radius: 28px !important;        /* ещё больше скругления */
+    padding: 24px;
+    margin-bottom: 24px;
+    border: none;
+    color: var(--text-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    box-shadow: var(--shadow);
+}
+
+.card-modern:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: var(--glow);
+}
+
+/* Кнопки — с неоновым свечением */
+.btn-modern {
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    color: white;
+    border-radius: 20px !important;        /* более круглые */
+    border: none;
+    padding: 10px 24px;
+    font-weight: 600;
+    transition: 0.25s;
+    box-shadow: 0 4px 12px rgba(0,180,216,0.3);
+}
+.btn-modern:hover {
+    opacity: 0.9;
+    box-shadow: var(--glow);
+    transform: scale(1.03);
+}
+
+/* Заголовки */
+.section-title {
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: var(--text-color);
+    text-shadow: 0 2px 5px rgba(0,180,216,0.3);
+}
+
+/* Формы */
+input, textarea {
+    border-radius: 20px !important;
+    border: 1px solid var(--border-color) !important;
+    background: var(--input-bg) !important;   /* было rgba(...) */
+    color: var(--text-color) !important;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+input:focus, textarea:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 4px rgba(0,180,216,0.2) !important;
+}
+
+/* Выпадающие списки (select) */
+select.form-control, select.form-select {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+    border-radius: 20px !important;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem; /* стандартный отступ Bootstrap для стрелки */
+}
+
+/* Поле загрузки файла */
+input[type=file].form-control {
+    background-color: var(--input-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+    border-radius: 20px !important;
+    padding: 0.375rem 0.75rem; /* подстройте под свои отступы */
+}
+
+/* Кнопка "Обзор" внутри file input */
+input[type=file]::file-selector-button {
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 6px 16px;
+    margin-right: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+    opacity: 0.85;
+    box-shadow: var(--glow);
+}
+
+/* Опции в выпадающем списке (базовая стилизация, поддерживается не всеми браузерами) */
+select.form-control option, select.form-select option {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+/* Анимация появления — более плавная */
+.fade-in {
+    animation: fade 0.7s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+@keyframes fade {
+    0% { opacity: 0; transform: translateY(25px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Дополнительная анимация для ссылок и кнопок */
+a, button {
+    transition: all 0.2s ease;
+}
+.navbar-brand img {
+    height: 40px;           /* подберите нужную высоту */
+    width: auto;
+    margin-right: 10px;
+    vertical-align: middle;
+    border-radius: 8px;      /* если хотите скругление */
+    transition: 0.2s;
+}
+.navbar-brand img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px var(--accent));
+}
+/* Фиксированный фон с изображением команды */
+.fixed-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/static/images/team-photo.png'); /* замените на свой файл */
+    background-size: cover;
+    background-position: center;
+    z-index: -1;                       /* фон позади всего */
+    filter: blur(0px);                  /* начальное значение */
+    transition: filter 0.1s ease-out;   /* плавное изменение размытия */
+}
+
+/* Заголовок команды (фиксирован по центру) */
+.hero-title-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;                          /* ниже контента, но выше фона */
+    text-align: center;
+    pointer-events: none;                 /* чтобы клики проходили сквозь заголовок к контенту */
+}
+
+.hero-title {
+    color: white;
+    font-size: 5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 30px rgba(0, 180, 216, 0.8);
+    margin: 0;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Контейнер с контентом (новости) */
+.content-overlay {
+    position: relative;
+    z-index: 2;                          /* выше заголовка, перекрывает его */
+    background: rgba(255, 255, 255, 0.8); /* полупрозрачный для светлой темы */
+    backdrop-filter: blur(10px);          /* дополнительное размытие подложки */
+    border-radius: 40px 40px 0 0;         /* скругление сверху */
+    padding: 40px 30px;
+    margin-top: 100vh;                    /* начинается за пределами экрана */
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease;
+}
+
+/* Коррекция для тёмной темы */
+.dark-theme .content-overlay {
+    background: rgba(10, 25, 40, 0.85);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    .content-overlay {
+        padding: 30px 20px;
+        margin-top: 90vh;                  /* чуть меньше отступ для мобильных */
+    }
+}
+
+/* Чтобы навбар не перекрывал заголовок (навбар выше) */
+.navbar {
+    z-index: 10;                           /* выше всего */
+}
+/* Стили для карточки матча */
+.match-card {
+    text-align: center;
+    padding: 20px;
+}
+.match-date {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.opponent {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+.score {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    text-shadow: 0 0 10px var(--accent);
+}
+/* Стили для карточек матчей с логотипами */
+.match-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.team-left, .team-right {
+    flex: 1;
+    text-align: center;
+}
+
+.team-logo {
+    max-width: 80px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    margin-bottom: 8px;
+    transition: transform 0.2s;
+}
+
+.team-logo:hover {
+    transform: scale(1.05);
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.match-score {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-shadow: 0 0 10px var(--accent);
+    min-width: 100px;
+    text-align: center;
+    color: var(--accent);
+}
+
+.match-date {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+/* Явно задаём цвет текста для всех полей ввода */
+input.form-control,
+textarea.form-control,
+select.form-control,
+select.form-select {
+    color: var(--text-color) !important;
+}
+
+/* Стили для текста внутри выпадающих опций (насколько это возможно) */
+select.form-control option,
+select.form-select option {
+    color: var(--text-color);
+    background-color: var(--card-bg);
+}
+
+/* Делаем плейсхолдеры читаемыми, но полупрозрачными */
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7;
+}
+
+/* Для поля загрузки файла (уже стилизовано, но добавим цвет текста) */
+input[type=file].form-control {
+    color: var(--text-color) !important;
+}
+
+/* Стили для таблиц (адаптация под тему) */
+.table {
+    color: var(--text-color);
+    background-color: transparent;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    border-bottom-color: var(--border-color);
+}
+
+.table-hover tbody tr:hover > * {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+.table th,
+.table td {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+}
+
+.table thead th {
+    border-bottom-color: var(--border-color);
+    background-color: rgba(0, 0, 0, 0.1) !important; /* легкий фон для заголовка */
+}
+
+/* Стили для исхода матча */
+.match-result {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.05);
+}
+
+.match-result.win {
+    color: #00ff9d; /* неоновый зелёный */
+    text-shadow: 0 0 10px #00ff9d;
+}
+
+.match-result.loss {
+    color: #ff4d4d; /* неоновый красный */
+    text-shadow: 0 0 10px #ff4d4d;
+}
+
+.match-result.win_ot {
+    color: #b3ffb3; /* более светлый зелёный для овертайма */
+    text-shadow: 0 0 8px #00ff9d;
+}
+
+.match-result.loss_ot {
+    color: #ffb3b3; /* более светлый красный */
+    text-shadow: 0 0 8px #ff4d4d;
+}
+
+/* Для тёмной темы можно оставить те же цвета или чуть подстроить */
+.dark-theme .match-result {
+    background: rgba(255,255,255,0.1);
+}
+
+/* Стили для кнопок инкремента в формах */
+.input-group .btn-outline-secondary {
+    border-color: var(--border-color);
+    color: var(--text-color);
+    background-color: var(--input-bg);
+}
+.input-group .btn-outline-secondary:hover {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.player-photo {
+    max-width: 200px;
+    border: 3px solid var(--accent);
+    box-shadow: var(--glow);
+    transition: transform 0.2s;
+}
+.player-photo:hover {
+    transform: scale(1.05);
+}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-modern">
+    <div class="row">
+        <div class="col-md-4 text-center">
+            <img src="{{ url_for('static', filename='images/players/' + player[1] + '.png') }}" 
+                 alt="{{ player[1] }}" 
+                 class="player-photo img-fluid rounded-circle mb-3"
+                 onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/players/default.png') }}';">
+        </div>
+        <div class="col-md-8">
+            <h2>{{ player[1] }}</h2>
+            <p><b>Роль:</b> 
+                {% if player[2] == 'goalie' %}Вратарь
+                {% elif player[2] == 'assistant' %}Ассистент
+                {% elif player[2] == 'sniper' %}Снайпер
+                {% endif %}
+            </p>
+
+            {% if player[2] == 'goalie' %}
+            <div class="row">
+                <div class="col-4"><b>Голы:</b> {{ player[3] }}</div>
+                <div class="col-4"><b>Отбитые:</b> {{ player[5] }}</div>
+                <div class="col-4"><b>Пропущено:</b> {{ player[6] }}</div>
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col-6"><b>Голы:</b> {{ player[3] }}</div>
+                <div class="col-6"><b>Передачи:</b> {{ player[4] }}</div>
+            </div>
+            {% endif %}
+
+            {% if player[7] %}
+            <div class="mt-4">
+                <h5>О игроке</h5>
+                <p>{{ player[7] }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

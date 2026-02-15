@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card-modern">
+    <h2>Редактировать игрока: {{ player[1] }}</h2>
+    <form method="POST" id="editPlayerForm">
+        <div class="mb-3">
+            <label class="form-label">Имя</label>
+            <input class="form-control" name="name" value="{{ player[1] }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Роль</label>
+            <select name="role" class="form-control" id="roleSelect" required>
+                <option value="goalie" {% if player[2] == 'goalie' %}selected{% endif %}>Вратарь</option>
+                <option value="assistant" {% if player[2] == 'assistant' %}selected{% endif %}>Ассистент</option>
+                <option value="sniper" {% if player[2] == 'sniper' %}selected{% endif %}>Снайпер</option>
+            </select>
+        </div>
+
+        <!-- Поля для вратаря -->
+        <div id="goalieFields" style="{% if player[2] != 'goalie' %}display: none;{% endif %}">
+            <div class="mb-3">
+                <label class="form-label">Голы</label>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_goals', -1)">-</button>
+                    <input type="number" class="form-control" name="goalie_goals" id="goalie_goals" value="{{ player[3] }}" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_goals', 1)">+</button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Отбитые</label>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_saves', -1)">-</button>
+                    <input type="number" class="form-control" name="goalie_saves" id="goalie_saves" value="{{ player[5] }}" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_saves', 1)">+</button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Пропущенные</label>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_conceded', -1)">-</button>
+                    <input type="number" class="form-control" name="goalie_conceded" id="goalie_conceded" value="{{ player[6] }}" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('goalie_conceded', 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Поля для полевых игроков -->
+        <div id="fieldPlayerFields" style="{% if player[2] != 'assistant' and player[2] != 'sniper' %}display: none;{% endif %}">
+            <div class="mb-3">
+                <label class="form-label">Голы</label>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('field_goals', -1)">-</button>
+                    <input type="number" class="form-control" name="field_goals" id="field_goals" value="{{ player[3] }}" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('field_goals', 1)">+</button>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Передачи</label>
+                <div class="input-group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('field_assists', -1)">-</button>
+                    <input type="number" class="form-control" name="field_assists" id="field_assists" value="{{ player[4] }}" min="0">
+                    <button type="button" class="btn btn-outline-secondary" onclick="changeValue('field_assists', 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Биография</label>
+            <textarea class="form-control" name="bio" rows="3">{{ player[7] }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-modern">Сохранить</button>
+        <a href="/admin" class="btn btn-secondary">Отмена</a>
+    </form>
+</div>
+
+<script>
+    const roleSelect = document.getElementById('roleSelect');
+    const goalieFields = document.getElementById('goalieFields');
+    const fieldPlayerFields = document.getElementById('fieldPlayerFields');
+
+    function toggleFields() {
+        const role = roleSelect.value;
+        goalieFields.style.display = 'none';
+        fieldPlayerFields.style.display = 'none';
+        if (role === 'goalie') {
+            goalieFields.style.display = 'block';
+        } else if (role === 'assistant' || role === 'sniper') {
+            fieldPlayerFields.style.display = 'block';
+        }
+    }
+
+    roleSelect.addEventListener('change', toggleFields);
+
+    function changeValue(fieldId, delta) {
+        const input = document.getElementById(fieldId);
+        if (input) {
+            let val = parseInt(input.value) || 0;
+            val = Math.max(0, val + delta);
+            input.value = val;
+        }
+    }
+</script>
+{% endblock %}

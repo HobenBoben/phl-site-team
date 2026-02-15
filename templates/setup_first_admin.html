@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-modern col-md-6 mx-auto">
+    <h3>Создание первого администратора</h3>
+
+    <p>В системе ещё нет ни одного администратора. Создайте главного администратора, отсканировав QR-код в приложении Google Authenticator и введя код.</p>
+
+    <div class="text-center my-4">
+        <img src="data:image/png;base64,{{ qr }}" alt="QR Code" style="max-width: 200px;">
+    </div>
+
+    <p class="text-muted small">Или введите секрет вручную: <code>{{ secret }}</code></p>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <input type="hidden" name="secret" value="{{ secret }}">
+        <div class="mb-3">
+            <label class="form-label">Ваше имя (для отображения)</label>
+            <input class="form-control" name="name" placeholder="Иван Иванов" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Код из приложения</label>
+            <input class="form-control" name="code" placeholder="123456" required autofocus>
+        </div>
+        <button class="btn btn-modern w-100">Создать и войти</button>
+    </form>
+</div>
+
+{% endblock %}

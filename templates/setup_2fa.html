@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-modern col-md-6 mx-auto">
+    <h3>Настройка двухфакторной аутентификации</h3>
+
+    <p>Отсканируйте этот QR-код в приложении Google Authenticator (или другом совместимом), затем введите код для подтверждения.</p>
+
+    <div class="text-center my-4">
+        <img src="data:image/png;base64,{{ qr }}" alt="QR Code" style="max-width: 200px;">
+    </div>
+
+    <p class="text-muted small">Или введите секрет вручную: <code>{{ secret }}</code></p>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <input type="hidden" name="secret" value="{{ secret }}">
+        <div class="mb-3">
+            <label class="form-label">Код из приложения</label>
+            <input class="form-control" name="code" placeholder="123456" required autofocus>
+        </div>
+        <button class="btn btn-modern w-100">Подтвердить и включить 2FA</button>
+    </form>
+</div>
+
+{% endblock %}

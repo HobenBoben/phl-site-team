@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-modern col-md-4 mx-auto">
+    <h3>Вход для администраторов</h3>
+
+    {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Код из Google Authenticator</label>
+            <input class="form-control" name="code" placeholder="123456" required autofocus>
+        </div>
+        <button class="btn btn-modern w-100">Войти</button>
+    </form>
+</div>
+
+{% endblock %}
