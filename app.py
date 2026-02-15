@@ -9,12 +9,12 @@ import io
 import base64
 
 app = Flask(__name__)
-app.secret_key = "SUPER_SECRET_KEY"  # В продакшене заменить на случайную строку
+app.secret_key = "QCYRI#crhq3cbidihqbccj387r873qyryxqnncqkcshbjdkcQIH@&H"  # В продакшене заменить на случайную строку
 app.permanent_session_lifetime = timedelta(minutes=30)
 
 # Пути для данных (монтируются в контейнере)
-DB_PATH = '/app/data/database.db'
-UPLOAD_FOLDER = '/app/static/uploads'
+DB_PATH = 'database.db'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'mp4', 'webm', 'avi', 'mov', 'mkv', 'zip', 'mcworld', 'png', 'jpg', 'jpeg', 'gif', 'webp'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -238,7 +238,7 @@ def setup_first_admin():
     # GET: генерируем секрет
     secret = pyotp.random_base32()
     totp = pyotp.TOTP(secret)
-    uri = totp.provisioning_uri(name="Minecraft Hockey Admin", issuer_name="Minecraft Hockey")
+    uri = totp.provisioning_uri(name="site 123", issuer_name="site super good")
     img = qrcode.make(uri)
     buf = io.BytesIO()
     img.save(buf, format="PNG")
@@ -459,5 +459,4 @@ def delete_admin(id):
     return redirect("/admin/admins")
 
 if __name__ == "__main__":
-    init_db()
     app.run(host="0.0.0.0", port=3000, debug=True)
