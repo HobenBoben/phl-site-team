@@ -535,26 +535,26 @@ input[type=file].form-control {
     transform: scale(1.05);
 }
 
-/* Миниатюра игрока на странице состава */
 .player-thumbnail {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;          /* обрезает фото, сохраняя пропорции */
-    border-radius: 50%;          /* круглая форма */
-    border: 3px solid var(--accent);
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
     box-shadow: var(--glow);
     transition: transform 0.2s;
-    background-color: var(--card-bg); /* фон на случай прозрачных PNG */
+    background-color: var(--card-bg);
+    display: block;
+    margin: 0 auto 10px;
 }
 
 .player-thumbnail:hover {
     transform: scale(1.05);
 }
 
-/* Адаптация для мобильных */
 @media (max-width: 768px) {
     .player-thumbnail {
-        width: 100px;
-        height: 100px;
+        width: 40px !important;
+        height: 40px !important;
     }
 }

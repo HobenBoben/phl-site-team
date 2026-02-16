@@ -1,31 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="section-title">Состав команды</h2>
+<small class="section-title">Статистика малясь неактуальная, позже обновим</small>
+<p></p>
+
+<div class="row">
 {% for p in players %}
-<div class="col-md-4 mb-4">
-    <div class="card-modern text-center">
-        <!-- Миниатюра фото -->
-        <img src="{{ p[1] | player_image }}" alt="{{ p[1] }}" class="player-thumbnail mb-3">
-        
-        <h4>{{ p[1] }}</h4>
-        <p>
-            {% if p[2] == 'goalie' %}
-                Вратарь
-            {% elif p[2] == 'assistant' %}
-                Ассистент
-            {% elif p[2] == 'sniper' %}
-                Снайпер
-            {% elif p[2] == 'vodonos' %}
-                Водонос
-            {% endif %}
-        </p>
-        <p>
-            {% if p[2] == 'goalie' %}
-                Голы: {{ p[3] }} | Отбитые: {{ p[5] }} | Пропущено: {{ p[6] }}
-            {% else %}
-                Голы: {{ p[3] }} | Передачи: {{ p[4] }}
-            {% endif %}
-        </p>
-        <a href="/player/{{ p[0] }}" class="btn btn-modern">
-            Подробнее
-        </a>
+    <div class="col-md-4 mb-4">
+        <div class="card-modern text-center">
+            <!-- Миниатюра фото -->
+            <img src="{{ p[1] | player_image }}" alt="{{ p[1] }}" class="player-thumbnail mb-3">
+            
+            <h4>{{ p[1] }}</h4>
+            <p>
+                {% if p[2] == 'goalie' %}
+                    Вратарь
+                {% elif p[2] == 'assistant' %}
+                    Ассистент
+                {% elif p[2] == 'sniper' %}
+                    Снайпер
+                {% elif p[2] == 'vodonos' %}
+                    Водонос
+                {% endif %}
+            </p>
+            <p>
+                {% if p[2] == 'goalie' %}
+                    Голы: {{ p[3] }} | Отбитые: {{ p[5] }} | Пропущено: {{ p[6] }}
+                {% else %}
+                    Голы: {{ p[3] }} | Передачи: {{ p[4] }}
+                {% endif %}
+            </p>
+            <a href="/player/{{ p[0] }}" class="btn btn-modern">
+                Подробнее
+            </a>
+        </div>
     </div>
-</div>
 {% endfor %}
+</div>
+
+{% endblock %}
