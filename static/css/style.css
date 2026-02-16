@@ -534,3 +534,27 @@ input[type=file].form-control {
 .player-photo:hover {
     transform: scale(1.05);
 }
+
+/* Миниатюра игрока на странице состава */
+.player-thumbnail {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;          /* обрезает фото, сохраняя пропорции */
+    border-radius: 50%;          /* круглая форма */
+    border: 3px solid var(--accent);
+    box-shadow: var(--glow);
+    transition: transform 0.2s;
+    background-color: var(--card-bg); /* фон на случай прозрачных PNG */
+}
+
+.player-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .player-thumbnail {
+        width: 100px;
+        height: 100px;
+    }
+}

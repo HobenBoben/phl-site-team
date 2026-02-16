@@ -15,6 +15,7 @@
                 <option value="goalie" {% if player[2] == 'goalie' %}selected{% endif %}>Вратарь</option>
                 <option value="assistant" {% if player[2] == 'assistant' %}selected{% endif %}>Ассистент</option>
                 <option value="sniper" {% if player[2] == 'sniper' %}selected{% endif %}>Снайпер</option>
+                <option value="vodonos" {% if player[2] == 'vodonos' %}selected{% endif %}>Водонос</option>
             </select>
         </div>
 
@@ -87,7 +88,7 @@
         fieldPlayerFields.style.display = 'none';
         if (role === 'goalie') {
             goalieFields.style.display = 'block';
-        } else if (role === 'assistant' || role === 'sniper') {
+        } else if (role === 'assistant' || role === 'sniper' || role === 'vodonos') {
             fieldPlayerFields.style.display = 'block';
         }
     }

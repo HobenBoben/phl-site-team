@@ -36,6 +36,7 @@
             <option value="goalie">Вратарь</option>
             <option value="assistant">Ассистент</option>
             <option value="sniper">Снайпер</option>
+            <option value="vodonos">Водонос</option>
         </select>
 
         <div id="goalieFields" style="display: none;">
@@ -81,6 +82,7 @@
                         {% if p[2] == 'goalie' %}Вратарь
                         {% elif p[2] == 'assistant' %}Ассистент
                         {% elif p[2] == 'sniper' %}Снайпер
+                        {% elif p[2] == 'vodonos' %}Водонос
                         {% endif %}
                     </td>
                     <td>{{ p[3] }}</td>
@@ -162,7 +164,7 @@
         fieldPlayerFields.style.display = 'none';
         if (role === 'goalie') {
             goalieFields.style.display = 'block';
-        } else if (role === 'assistant' || role === 'sniper') {
+        } else if (role === 'assistant' || role === 'sniper' || role === 'vodonos') {
             fieldPlayerFields.style.display = 'block';
         }
     }
